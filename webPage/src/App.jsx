@@ -680,7 +680,7 @@ const DronePage = ({ setPage }) => {
           <div className="relative aspect-video rounded-xl overflow-hidden border border-cyan-500/30 bg-black group">
             <div 
               className="absolute inset-0 bg-cover bg-center transition-all duration-500"
-              style={{ backgroundImage: `url('/飞行器效果图.jpg')` }}
+              style={{ backgroundImage: `url('/image.png')` }}
             ></div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#051024] to-transparent opacity-80"></div>
             
