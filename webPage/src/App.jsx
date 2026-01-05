@@ -650,12 +650,12 @@ const DronePage = ({ setPage }) => {
   
   const droneImages = [
     { title: '仿生蜻蜓翼结构', url: '/飞行器细节图1.jpg' },
-    { title: '传感器探头', url: '/飞行器细节图2.jpg' },
-    { title: '机械臂挂载点', url: '/飞行器细节图3(1).jpg' }
+    { title: '核心反应堆单元', url: '/飞行器细节图2.jpg' },
+    { title: '喷射口&推力器', url: '/飞行器细节图3(1).jpg' }
   ];
   
   const mainImageUrl = activeThumb === -1 ? '/飞行器细节图1.jpg' : droneImages[activeThumb].url;
-  const mainImageTitle = activeThumb === -1 ? '信使 X-200' : droneImages[activeThumb].title;
+  const mainImageTitle = activeThumb === -1 ? '仿生蜻蜓翼结构' : droneImages[activeThumb].title;
 
   return (
     <motion.div 
