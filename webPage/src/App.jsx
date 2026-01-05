@@ -646,13 +646,16 @@ const ArkPage = ({ setPage }) => {
 // 飞行器详情页
 const DronePage = ({ setPage }) => {
   const [activeTab, setActiveTab] = useState('commute');
-  const [activeThumb, setActiveThumb] = useState(0);
+  const [activeThumb, setActiveThumb] = useState(-1); // -1 表示默认主图
   
   const droneImages = [
     { title: '仿生蜻蜓翼结构', url: '/飞行器细节图1.jpg' },
     { title: '传感器探头', url: '/飞行器细节图2.jpg' },
     { title: '机械臂挂载点', url: '/飞行器细节图3(1).jpg' }
   ];
+  
+  const mainImageUrl = activeThumb === -1 ? '/飞行器细节图1.jpg' : droneImages[activeThumb].url;
+  const mainImageTitle = activeThumb === -1 ? '信使 X-200' : droneImages[activeThumb].title;
 
   return (
     <motion.div 
@@ -678,24 +681,33 @@ const DronePage = ({ setPage }) => {
         <div className="lg:col-span-7 space-y-8">
           
           <div className="relative aspect-video rounded-xl overflow-hidden border border-cyan-500/30 bg-black group">
-            <div 
-              className="absolute inset-0 bg-cover bg-center transition-all duration-500"
-              style={{ backgroundImage: `url('/image.png')` }}
-            ></div>
+            <motion.div 
+              key={mainImageUrl}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0 bg-cover bg-center"
+              style={{ backgroundImage: `url('${mainImageUrl}')` }}
+            ></motion.div>
             <div className="absolute inset-0 bg-gradient-to-t from-[#051024] to-transparent opacity-80"></div>
             
             <div className="absolute bottom-6 left-6">
-              <p className="text-cyan-400 text-xs font-mono mb-1">VIEW MODE: 信使 X-200</p>
-              <h2 className="text-4xl text-white font-bold tech-font">信使 X-200</h2>
+              <p className="text-cyan-400 text-xs font-mono mb-1">VIEW MODE: {mainImageTitle}</p>
+              <h2 className="text-4xl text-white font-bold tech-font">{mainImageTitle}</h2>
             </div>
 
             <div className="absolute bottom-6 right-6 flex space-x-2">
               {droneImages.map((img, idx) => (
                 <button 
                   key={idx}
-                  className="w-16 h-10 border border-white/20 bg-black/50 rounded overflow-hidden hover:border-white transition-all"
+                  onClick={() => setActiveThumb(activeThumb === idx ? -1 : idx)}
+                  className={`w-16 h-10 border rounded overflow-hidden transition-all ${
+                    activeThumb === idx 
+                      ? 'border-cyan-400 shadow-[0_0_10px_rgba(0,191,255,0.5)]' 
+                      : 'border-white/20 bg-black/50 hover:border-white'
+                  }`}
                 >
-                  <img src={img.url} className="w-full h-full object-cover opacity-70" alt="" />
+                  <img src={img.url} className={`w-full h-full object-cover ${activeThumb === idx ? 'opacity-100' : 'opacity-70'}`} alt={img.title} />
                 </button>
               ))}
             </div>
